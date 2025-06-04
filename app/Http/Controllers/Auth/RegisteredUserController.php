@@ -36,15 +36,21 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Assign the 'customer' role to the newly registered user
+        $user->assignRole('customer');
+
+        // Fire the Registered event
         event(new Registered($user));
 
+        // Log the user in
         Auth::login($user);
 
+        // Redirect to dashboard
         return redirect(route('dashboard', absolute: false));
     }
 }
