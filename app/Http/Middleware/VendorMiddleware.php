@@ -18,10 +18,9 @@ class VendorMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role === 'vendor') {
-            return $next($request);
-        }
-
+        if (!Auth::check() || !Auth::user()->hasRole('vendor')) {
         abort(403, 'Unauthorized action.');
+        }
+        return $next($request);
     }
 }
