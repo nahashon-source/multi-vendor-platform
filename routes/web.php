@@ -17,6 +17,9 @@ Route::middleware(['auth', 'verified'])->prefix('vendor')->name('vendor.')->grou
     Route::get('/dashboard', [VendorDashboardController::class, 'index'])->name('dashboard');
 });
 
+Route::middleware(['auth', 'role:Vendor'])->prefix('vendor')->name('vendor')->group(function (){
+    Route::resource('products', \App\Http\Controllers\Vendor\ProductController::class);
+});
 
 
 Route::middleware('auth')->group(function () {

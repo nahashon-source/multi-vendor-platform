@@ -3,8 +3,11 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use Illuminate\Auth\Middleware\RequirePassword;
+
+//Custom middelwares
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\VendorMiddleware;
+use App\Http\Middleware\CustomerMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -19,11 +22,9 @@ class Kernel extends HttpKernel
      */
 
      protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
