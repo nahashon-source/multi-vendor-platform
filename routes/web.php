@@ -21,6 +21,11 @@ Route::middleware(['auth', 'role:Vendor'])->prefix('vendor')->name('vendor')->gr
     Route::resource('products', \App\Http\Controllers\Vendor\ProductController::class);
 });
 
+Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(function () {
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
