@@ -28,7 +28,8 @@
                     <form action="{{ route('vendor.products.destroy', $product->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+
                     </form>
                 </td>
              </tr>
@@ -36,3 +37,28 @@
     </table>
  
 </div>
+<!-- your product table/list here -->
+
+<!-- SweetAlert Delete Confirmation Script -->
+<script>
+document.querySelectorAll('.delete-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This will permanently delete the product!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e3342f',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+
+@endsection
