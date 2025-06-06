@@ -26,6 +26,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','admin'])->group(func
 
 });
 
+Route::get('/shop', [App\Http\Controllers\ShopController::class, 'index'])->name('shop.index');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
