@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+document.getElementById('imageInput').onchange = function (event) {
+    const [file] = event.target.files;
+    if (file) {
+        const preview = document.getElementById('previewImage');
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+    }
+};
+</script>
 <div class="container">
     <h2 class="text-2xl font-bold mb-4">Add Product</h2>
 
@@ -37,5 +47,12 @@
 
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Product</button>
     </form>
+    <div class="mb-3">
+       <label>Product Image:</label>
+       <input type="file" name="image" id="ImageInput" class="form-control">
+    </div>
+    <div class="mb-3"> 
+         <img id = "previewImage" src="#" alt="Image Preview" style="display:none; max-width:200px;"/>
+    </div>
 </div>
 @endsection
